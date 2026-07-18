@@ -1,0 +1,1288 @@
+Create full MSSR tax system website
+bash
+
+mkdir -p /home/claude/mssr-tax && cat > /home/claude/mssr-tax/index.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="mo">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Систем Фискал ал РССМ — 1940–1991</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=PT+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#f5f0e8;
+  --ink:#1a1208;
+  --ink2:#4a3f2f;
+  --ink3:#8a7a62;
+  --red:#8b1a1a;
+  --gold:#b8860b;
+  --gold2:#d4a017;
+  --bg-dark:#1a1208;
+  --rule:#c8b89a;
+  --stamp:#8b1a1a;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PT Serif",serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+}
+
+/* ── MASTHEAD ── */
+.masthead{
+  background:var(--bg-dark);
+  color:var(--paper);
+  padding:0;
+  text-align:center;
+  border-bottom:6px double var(--gold);
+  position:relative;
+  overflow:hidden;
+}
+.masthead-top{
+  background:var(--red);
+  padding:8px 24px;
+  font-family:"PT Serif",serif;
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(245,240,232,.7);
+}
+.masthead-body{
+  padding:40px 24px 32px;
+}
+.masthead-emblem{
+  font-size:56px;
+  display:block;
+  margin-bottom:12px;
+  filter:drop-shadow(0 2px 8px rgba(184,134,11,.4));
+}
+.masthead h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(22px,4vw,38px);
+  font-weight:700;
+  line-height:1.15;
+  letter-spacing:-0.5px;
+  color:#f5f0e8;
+  margin-bottom:10px;
+}
+.masthead-sub{
+  font-size:13px;
+  color:rgba(245,240,232,.6);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+.masthead-rule{
+  width:60px;height:2px;
+  background:var(--gold);
+  margin:0 auto 20px;
+}
+.masthead-years{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  color:var(--gold2);
+  border:1px solid rgba(184,134,11,.4);
+  padding:6px 18px;
+  border-radius:2px;
+}
+
+/* ── NAV ── */
+.nav-strip{
+  background:var(--ink);
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:0;
+  position:sticky;top:0;z-index:100;
+  border-bottom:2px solid var(--gold);
+}
+.nav-strip a{
+  padding:11px 18px;
+  color:rgba(245,240,232,.7);
+  text-decoration:none;
+  font-size:12px;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  font-family:"PT Serif",serif;
+  border-bottom:2px solid transparent;
+  transition:all .2s;
+  white-space:nowrap;
+}
+.nav-strip a:hover{color:var(--gold2);border-bottom-color:var(--gold2)}
+
+/* ── CONTENT WRAPPER ── */
+.content{max-width:1000px;margin:0 auto;padding:0 20px}
+
+/* ── SECTION HEADER ── */
+.section-head{
+  padding:48px 0 0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:start;
+  gap:16px;
+  margin-bottom:28px;
+}
+.section-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--ink3);
+  letter-spacing:2px;
+  background:rgba(184,134,11,.12);
+  border:1px solid var(--rule);
+  padding:3px 8px;
+  margin-top:6px;
+}
+.section-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(20px,3vw,28px);
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.2;
+}
+.section-title span{color:var(--red)}
+.section-sep{
+  border:none;
+  border-top:1px solid var(--rule);
+  margin-bottom:28px;
+}
+
+/* ── INTRO CARD ── */
+.intro-box{
+  background:#fff;
+  border:1px solid var(--rule);
+  border-left:4px solid var(--red);
+  padding:22px 24px;
+  margin-bottom:32px;
+  font-size:15px;
+  line-height:1.8;
+  color:var(--ink2);
+}
+.intro-box strong{color:var(--ink)}
+
+/* ── TIMELINE ── */
+.timeline{
+  position:relative;
+  padding-left:32px;
+  margin-bottom:32px;
+}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:10px;top:0;bottom:0;
+  width:2px;
+  background:linear-gradient(to bottom,var(--red),var(--gold),var(--ink3));
+}
+.tl-item{
+  position:relative;
+  margin-bottom:24px;
+}
+.tl-item::before{
+  content:"";
+  position:absolute;
+  left:-26px;top:6px;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--red);
+  border:2px solid var(--paper);
+  box-shadow:0 0 0 2px var(--red);
+}
+.tl-year{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--red);
+  font-weight:600;
+  letter-spacing:1px;
+  margin-bottom:3px;
+}
+.tl-text{
+  font-size:14px;
+  line-height:1.7;
+  color:var(--ink2);
+}
+.tl-text strong{color:var(--ink)}
+
+/* ── TAX CARDS GRID ── */
+.tax-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;
+  margin-bottom:32px;
+}
+.tax-card{
+  background:#fff;
+  border:1px solid var(--rule);
+  border-radius:2px;
+  overflow:hidden;
+  transition:box-shadow .2s,transform .15s;
+  cursor:pointer;
+}
+.tax-card:hover{
+  box-shadow:0 4px 20px rgba(26,18,8,.12);
+  transform:translateY(-2px);
+}
+.tax-card-head{
+  background:var(--ink);
+  color:var(--paper);
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.tax-card-icon{font-size:22px}
+.tax-card-name{
+  font-family:"Playfair Display",serif;
+  font-size:14px;
+  font-weight:700;
+}
+.tax-card-body{padding:14px 16px}
+.tax-card-rate{
+  font-family:"JetBrains Mono",monospace;
+  font-size:22px;
+  font-weight:600;
+  color:var(--red);
+  margin-bottom:4px;
+}
+.tax-card-desc{
+  font-size:12px;
+  color:var(--ink3);
+  line-height:1.6;
+}
+.tax-card-cat{
+  display:inline-block;
+  margin-top:10px;
+  padding:2px 8px;
+  font-size:10px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  border:1px solid var(--rule);
+  color:var(--ink3);
+  font-family:"JetBrains Mono",monospace;
+}
+
+/* ── CALCULATOR ── */
+.calc-wrap{
+  background:#fff;
+  border:1px solid var(--rule);
+  margin-bottom:32px;
+}
+.calc-head{
+  background:var(--ink);
+  color:var(--paper);
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.calc-head-title{
+  font-family:"Playfair Display",serif;
+  font-size:16px;
+}
+.calc-body{padding:24px}
+
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+@media(max-width:560px){.form-row{grid-template-columns:1fr}}
+
+.form-group{margin-bottom:0}
+.form-label{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--ink3);
+  margin-bottom:6px;
+  font-family:"JetBrains Mono",monospace;
+}
+.form-input,.form-select{
+  width:100%;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  padding:9px 12px;
+  font-size:14px;
+  font-family:"PT Serif",serif;
+  color:var(--ink);
+  outline:none;
+  border-radius:0;
+  transition:border-color .2s;
+}
+.form-input:focus,.form-select:focus{border-color:var(--red)}
+
+.calc-btn{
+  background:var(--red);
+  color:#fff;
+  border:none;
+  padding:12px 28px;
+  font-size:13px;
+  font-family:"PT Serif",serif;
+  letter-spacing:.5px;
+  cursor:pointer;
+  transition:background .15s;
+  margin-top:8px;
+}
+.calc-btn:hover{background:#6b1313}
+
+/* ── RESULT ── */
+.result-box{
+  margin-top:20px;
+  display:none;
+  border:1px solid var(--rule);
+  border-top:3px solid var(--red);
+}
+.result-box.visible{display:block}
+.result-head{
+  background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  padding:10px 16px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  color:var(--ink3);
+  font-family:"JetBrains Mono",monospace;
+}
+.result-rows{padding:16px}
+.result-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  padding:7px 0;
+  border-bottom:1px dashed var(--rule);
+  font-size:13px;
+}
+.result-row:last-child{border-bottom:none}
+.result-row-lbl{color:var(--ink2)}
+.result-row-val{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  color:var(--ink);
+}
+.result-total{
+  margin-top:12px;
+  padding:12px 16px;
+  background:var(--ink);
+  color:var(--paper);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.result-total-lbl{font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.result-total-val{
+  font-family:"JetBrains Mono",monospace;
+  font-size:20px;
+  color:var(--gold2);
+}
+.result-note{
+  padding:10px 16px;
+  font-size:11px;
+  color:var(--ink3);
+  background:rgba(245,240,232,.5);
+  border-top:1px solid var(--rule);
+  font-style:italic;
+}
+
+/* ── STAMP ── */
+.stamp{
+  display:inline-block;
+  border:3px solid var(--stamp);
+  color:var(--stamp);
+  padding:8px 20px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transform:rotate(-4deg);
+  opacity:.7;
+  margin:20px 0;
+}
+
+/* ── INFO COLUMNS ── */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-bottom:28px;
+}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+
+.info-block{
+  background:#fff;
+  border:1px solid var(--rule);
+  padding:18px;
+}
+.info-block-title{
+  font-family:"Playfair Display",serif;
+  font-size:14px;
+  font-weight:700;
+  color:var(--red);
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--rule);
+}
+.info-list li{
+  font-size:13px;
+  color:var(--ink2);
+  line-height:1.8;
+  padding:3px 0;
+  padding-left:14px;
+  position:relative;
+  list-style:none;
+}
+.info-list li::before{
+  content:"—";
+  position:absolute;
+  left:0;
+  color:var(--gold);
+}
+
+/* ── DATA TABLE ── */
+.data-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-bottom:28px;
+  font-size:13px;
+}
+.data-table th{
+  background:var(--ink);
+  color:var(--paper);
+  padding:10px 14px;
+  text-align:left;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:400;
+}
+.data-table td{
+  padding:9px 14px;
+  border-bottom:1px solid var(--rule);
+  color:var(--ink2);
+  vertical-align:top;
+}
+.data-table tr:nth-child(even) td{background:rgba(245,240,232,.6)}
+.data-table tr:hover td{background:rgba(184,134,11,.07)}
+.data-table .val{
+  font-family:"JetBrains Mono",monospace;
+  color:var(--red);
+  font-size:12px;
+}
+
+/* ── QUOTE ── */
+.doc-quote{
+  border-left:4px solid var(--gold);
+  margin:24px 0;
+  padding:16px 20px;
+  background:rgba(184,134,11,.05);
+  font-style:italic;
+  font-size:14px;
+  color:var(--ink2);
+  line-height:1.8;
+}
+.doc-quote cite{
+  display:block;
+  margin-top:8px;
+  font-style:normal;
+  font-size:11px;
+  color:var(--ink3);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-family:"JetBrains Mono",monospace;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);
+  color:rgba(245,240,232,.6);
+  text-align:center;
+  padding:36px 24px;
+  margin-top:60px;
+  border-top:4px double var(--gold);
+}
+footer p{font-size:12px;line-height:1.8}
+footer strong{color:var(--gold2)}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;margin-bottom:0;border-bottom:1px solid var(--rule)}
+.tab-btn{
+  padding:10px 20px;
+  background:none;
+  border:none;
+  font-family:"PT Serif",serif;
+  font-size:13px;
+  color:var(--ink3);
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all .2s;
+  letter-spacing:.3px;
+}
+.tab-btn.active,.tab-btn:hover{color:var(--red);border-bottom-color:var(--red)}
+.tab-pane{display:none;padding-top:20px}
+.tab-pane.active{display:block}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-top">Република Советикэ Сочиалистэ Молдовеняскэ · РССМ · 1940 — 1991</div>
+  <div class="masthead-body">
+    <span class="masthead-emblem">☭</span>
+    <h1>Систем Фискал ал РССМ</h1>
+    <p class="masthead-sub">Импозите · Таксе · Абонаменте · Тачери</p>
+    <div class="masthead-rule"></div>
+    <div class="masthead-years">
+      <span>1940</span>
+      <span>—</span>
+      <span>1991</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-strip">
+  <a href="#history">Историе</a>
+  <a href="#types">Типурь де Импозите</a>
+  <a href="#calculator">Калкулатор</a>
+  <a href="#rates">Котеле</a>
+  <a href="#docs">Документе</a>
+</nav>
+
+<div class="content">
+
+<!-- ══════════════════════════════════════════════
+     ИСТОРИЯ
+══════════════════════════════════════════════ -->
+<section id="history">
+  <div class="section-head">
+    <span class="section-num">§ 01</span>
+    <h2 class="section-title">История <span>Систем Фискал</span></h2>
+  </div>
+  <hr class="section-sep">
+
+  <div class="intro-box">
+    <strong>Систем Фискал ал РССМ</strong> а фост парте интегрантэ а систем фискал советик,
+    координат де Минестерул Финанцелор ал УРСС. Импозителе ши такселе ерау реглементате
+    де лежислация Унюний Советиче, ку унеле адаптэрь локале специфиче Молдовей.
+    Принчипалул органорган фискал ера <strong>Инспекция Фискалэ де Стат</strong>,
+    субординатэ Минестерулуй Финанцелор ал РССМ.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1940</div>
+      <div class="tl-text"><strong>Конституиря РССМ</strong> — Систем фискал советик се эктинде пе
+        териториул Молдовей. Принчипалеле импозите проведен де Коначиул де Министрь ал УРСС.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1941–1945</div>
+      <div class="tl-text"><strong>Периоада де рэзбой</strong> — Таксе де рэзбой специале.
+        Импозите мэрите пентру финанцаря еффортулуй де рэзбой. Тача пе буджет ши аборнаменте де
+        апэраре.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1946–1953</div>
+      <div class="tl-text"><strong>Рекоиструкция постбеликэ</strong> — Систем нов де импозитаре
+        пентру популация руралэ. Тача агриколэ ши куотеле мандаторие пентру колхознич.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1958–1960</div>
+      <div class="tl-text"><strong>Реформа фискалэ Хрущов</strong> — Редучеря импозителор дирекпте
+        пентру мунчиторий де ла интрепрындерь. Мэриря импозителор индирекпте.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1965–1979</div>
+      <div class="tl-text"><strong>Периоада Брежнев</strong> — Стабилизаря систем фискал.
+        Импозит пе венит пентру мунчиторий де стат ши колхознич. Стандардизаря куотелор.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1986–1990</div>
+      <div class="tl-text"><strong>Перестройка</strong> — Реформе фискале: апарицяă кооператибелор
+        привате, нотелор имопозитаре нои. Лежя ку привире ла импозитаря кооператибелор (1988).</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1991</div>
+      <div class="tl-text"><strong>Декларация де Индепенденцэ</strong> — Дезинтеграря УРСС.
+        Систем фискал советик ынкетязэ. РССМ девине Република Молдова.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ТИПУРЬ ДЕ ИМПОЗИТЕ
+══════════════════════════════════════════════ -->
+<section id="types">
+  <div class="section-head">
+    <span class="section-num">§ 02</span>
+    <h2 class="section-title">Типурь де <span>Импозите</span></h2>
+  </div>
+  <hr class="section-sep">
+
+  <div class="tax-grid">
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">💼</div>
+        <div class="tax-card-name">Импозит пе Венит</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">8–13%</div>
+        <div class="tax-card-desc">Импозит прогресив пе салариул мунчиторилор де стат ши ал колхозниколор. Калкулат де ла суме де песте 70 руб./лунэ.</div>
+        <span class="tax-card-cat">Директ · Персонал</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">🏛️</div>
+        <div class="tax-card-name">Импозит де Стат пе Интрепрындерь</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">35–45%</div>
+        <div class="tax-card-desc">Импозит пе профитул ынтрепрындерилор де стат. Перчентаж ын функцие де рамурэ ши план.</div>
+        <span class="tax-card-cat">Директ · Юридик</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">🌾</div>
+        <div class="tax-card-name">Тача Агриколэ</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">Куоте</div>
+        <div class="tax-card-desc">Девэрсэминте мандаторие де продусе агриколе (гряне, карне, лапте). Фиксате де план пентру колхозурь ши совхозурь.</div>
+        <span class="tax-card-cat">Натуралэ · Колектив</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">🏠</div>
+        <div class="tax-card-name">Импозит пе Локуинцэ</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">0.5–1%</div>
+        <div class="tax-card-desc">Ануал, де ла валоаря инвентарэ а лочинцей привате. Ексемпт: ветераний де рэзбой, инвалидзий.</div>
+        <span class="tax-card-cat">Директ · Патримониал</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">🚗</div>
+        <div class="tax-card-name">Тача пе Транспорт</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">50–200 руб.</div>
+        <div class="tax-card-desc">Ануал пентру детинэторий де аутомобиле привате. Ын функцие де типул ши путеря мотор (CP).</div>
+        <span class="tax-card-cat">Директ · Транспорт</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">⚡</div>
+        <div class="tax-card-name">Импозит де Рулаж (Оборот)</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">3–75%</div>
+        <div class="tax-card-desc">Импозит пе валоаря вынзэрилор де продусе (аналогул ТВА). Диференциат пе категорий де бунурь.</div>
+        <span class="tax-card-cat">Индирект · Комерч</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">📺</div>
+        <div class="tax-card-name">Импозит пе Целибат</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">6%</div>
+        <div class="tax-card-desc">Импозит специал пентру бэрбаций нэнсурэць ши фемеиле нэмэритате фэрэ копий. Ынтродус ын 1941.</div>
+        <span class="tax-card-cat">Специал · Персонал</span>
+      </div>
+    </div>
+
+    <div class="tax-card">
+      <div class="tax-card-head">
+        <div class="tax-card-icon">💰</div>
+        <div class="tax-card-name">Котизация де Асигурэрь</div>
+      </div>
+      <div class="tax-card-body">
+        <div class="tax-card-rate">1%</div>
+        <div class="tax-card-desc">Ретинутэ де ла мунчиторий синдикализаць. Асигуряу пенсиа де бэтрынеце ши ажутоаре социале.</div>
+        <span class="tax-card-cat">Социал · Мунчитор</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-block">
+      <div class="info-block-title">Импозите Дирекпте</div>
+      <ul class="info-list">
+        <li>Импозит прогресив пе салариу</li>
+        <li>Импозит пе венитуриле din суплиментаре</li>
+        <li>Тача пентру детинэторий де лот</li>
+        <li>Импозит пе мошение (авере)</li>
+        <li>Импозит пе транспорт</li>
+        <li>Тача пе лочинцэ</li>
+      </ul>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Импозите Индирекпте</div>
+      <ul class="info-list">
+        <li>Импозит де рулаж (налог с оборота)</li>
+        <li>Аксизе пе алкоол ши тутун</li>
+        <li>Аксизе пе ауто импортате</li>
+        <li>Таксе вамале</li>
+        <li>Таксе де тимбру</li>
+        <li>Таксе де ноторят</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     КАЛКУЛАТОР
+══════════════════════════════════════════════ -->
+<section id="calculator">
+  <div class="section-head">
+    <span class="section-num">§ 03</span>
+    <h2 class="section-title">Калкулатор <span>Фискал</span></h2>
+  </div>
+  <hr class="section-sep">
+
+  <div class="calc-wrap">
+    <div class="calc-head">
+      <span style="font-size:20px">🧮</span>
+      <span class="calc-head-title">Калкулатор де Импозите РССМ</span>
+    </div>
+    <div class="calc-body">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-salary',this)">Импозит пе Салариу</button>
+        <button class="tab-btn" onclick="switchTab('tab-property',this)">Тача пе Лочинцэ</button>
+        <button class="tab-btn" onclick="switchTab('tab-transport',this)">Тача Транспорт</button>
+        <button class="tab-btn" onclick="switchTab('tab-bachelor',this)">Импозит Челибат</button>
+      </div>
+
+      <!-- TAB: SALARY -->
+      <div id="tab-salary" class="tab-pane active">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Салариу Лунар (Рубле)</label>
+            <input class="form-input" type="number" id="salary" placeholder="пр: 150" min="0"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Категориа де Мунчитор</label>
+            <select class="form-select" id="worker-type">
+              <option value="worker">Мунчитор де Стат</option>
+              <option value="kolkhoz">Колхозник</option>
+              <option value="cooperative">Мунчитор Кооператив (дупэ 1988)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Нумэрул де Копий</label>
+            <input class="form-input" type="number" id="children" placeholder="0" min="0" max="10"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ан де Калкул</label>
+            <select class="form-select" id="calc-year">
+              <option value="1950">1950</option>
+              <option value="1960">1960</option>
+              <option value="1970" selected>1970</option>
+              <option value="1980">1980</option>
+              <option value="1990">1990</option>
+            </select>
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcSalary()">⟹ Калкулязэ Импозитул</button>
+        <div id="result-salary" class="result-box"></div>
+      </div>
+
+      <!-- TAB: PROPERTY -->
+      <div id="tab-property" class="tab-pane">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Суправфаца (м²)</label>
+            <input class="form-input" type="number" id="area" placeholder="пр: 60" min="0"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Типул Лочинцей</label>
+            <select class="form-select" id="prop-type">
+              <option value="urban">Ораш (Кишинэу, Бэлць)</option>
+              <option value="rural">Сат/Ком.</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Категориа Проприетарулуй</label>
+            <select class="form-select" id="owner-type">
+              <option value="regular">Цивил</option>
+              <option value="veteran">Ветеран де Рэзбой (Ексемпт)</option>
+              <option value="invalid">Инвалид (Ексемпт)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ан де Калкул</label>
+            <select class="form-select" id="prop-year">
+              <option value="1960">1960</option>
+              <option value="1970" selected>1970</option>
+              <option value="1980">1980</option>
+            </select>
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcProperty()">⟹ Калкулязэ Тача</button>
+        <div id="result-property" class="result-box"></div>
+      </div>
+
+      <!-- TAB: TRANSPORT -->
+      <div id="tab-transport" class="tab-pane">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Типул Транспортулуй</label>
+            <select class="form-select" id="transport-type">
+              <option value="moto">Мотоциклетэ / Мопед</option>
+              <option value="car-small">Аутомобил (пынэ ла 1.2л)</option>
+              <option value="car-mid">Аутомобил (1.2–1.8л)</option>
+              <option value="car-big">Аутомобил (песте 1.8л)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Нумэрул де Унитэць</label>
+            <input class="form-input" type="number" id="transport-count" placeholder="1" min="1" max="5"/>
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcTransport()">⟹ Калкулязэ Тача Ануалэ</button>
+        <div id="result-transport" class="result-box"></div>
+      </div>
+
+      <!-- TAB: BACHELOR -->
+      <div id="tab-bachelor" class="tab-pane">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Салариу Лунар (Рубле)</label>
+            <input class="form-input" type="number" id="bach-salary" placeholder="пр: 120" min="0"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Вырста</label>
+            <input class="form-input" type="number" id="bach-age" placeholder="пр: 30" min="18" max="60"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Сексул</label>
+            <select class="form-select" id="bach-gender">
+              <option value="m">Мэскулин</option>
+              <option value="f">Фемениин</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ан де Калкул</label>
+            <select class="form-select" id="bach-year">
+              <option value="1945">1941–1957</option>
+              <option value="1958" selected>1958–1991</option>
+            </select>
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcBachelor()">⟹ Калкулязэ Импозитул</button>
+        <div id="result-bachelor" class="result-box"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     КУОТЕ / ТАРИФ
+══════════════════════════════════════════════ -->
+<section id="rates">
+  <div class="section-head">
+    <span class="section-num">§ 04</span>
+    <h2 class="section-title">Куотеле <span>Импозителор</span></h2>
+  </div>
+  <hr class="section-sep">
+
+  <div class="doc-quote">
+    „Перетинеря паций социале ши чета социалистэ сынт базеле принчипале але фискалитэций ын УРСС.
+    Буджетул де стат ал УРСС конституие принчипалул инструмент фискал ал путерий советиче."
+    <cite>— Минестерул Финанцелор ал УРСС, 1970</cite>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Типул Импозитулуй</th>
+        <th>Бaza дe Импозитаре</th>
+        <th>Куота (1970)</th>
+        <th>Обсервации</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Импозит пе венит (пынэ ла 70 руб.)</td>
+        <td>Салариу лунар</td>
+        <td class="val">Ексемпт</td>
+        <td>Сума минимэ несупусэ импозитулуй</td>
+      </tr>
+      <tr>
+        <td>Импозит пе венит (71–90 руб.)</td>
+        <td>Салариу лунар</td>
+        <td class="val">8.2%</td>
+        <td>Мунчиторий де стат</td>
+      </tr>
+      <tr>
+        <td>Импозит пе венит (91–100 руб.)</td>
+        <td>Салариу лунар</td>
+        <td class="val">10.0%</td>
+        <td>Мунчиторий де стат</td>
+      </tr>
+      <tr>
+        <td>Импозит пе венит (101–200 руб.)</td>
+        <td>Салариу лунар</td>
+        <td class="val">12.0%</td>
+        <td>Мунчиторий де стат</td>
+      </tr>
+      <tr>
+        <td>Импозит пе венит (песте 200 руб.)</td>
+        <td>Салариу лунар</td>
+        <td class="val">13.0%</td>
+        <td>Куота максимэ</td>
+      </tr>
+      <tr>
+        <td>Импозит пе челибат</td>
+        <td>Салариу лунар</td>
+        <td class="val">6.0%</td>
+        <td>Нэнсурэць/нэмэритате фэрэ копий 20–50 ань</td>
+      </tr>
+      <tr>
+        <td>Тача пе лочинцэ привата (ораш)</td>
+        <td>Валоаре инвентарэ</td>
+        <td class="val">0.65%</td>
+        <td>Ануал</td>
+      </tr>
+      <tr>
+        <td>Тача пе лочинцэ привата (сат)</td>
+        <td>Валоаре инвентарэ</td>
+        <td class="val">0.35%</td>
+        <td>Ануал</td>
+      </tr>
+      <tr>
+        <td>Тача транспорт — мотоциклетэ</td>
+        <td>Унитате</td>
+        <td class="val">50 руб./ан</td>
+        <td>Тача фиксэ</td>
+      </tr>
+      <tr>
+        <td>Тача транспорт — аутомобил (малий)</td>
+        <td>Унитате</td>
+        <td class="val">50 руб./ан</td>
+        <td>Жигули, Запорожець</td>
+      </tr>
+      <tr>
+        <td>Тача транспорт — аутомобил (медиу)</td>
+        <td>Унитате</td>
+        <td class="val">100 руб./ан</td>
+        <td>Волга, Москвич</td>
+      </tr>
+      <tr>
+        <td>Тача транспорт — аутомобил (mare)</td>
+        <td>Унитате</td>
+        <td class="val">200 руб./ан</td>
+        <td>Авто де класэ маре</td>
+      </tr>
+      <tr>
+        <td>Импозит де рулаж — алиментаре</td>
+        <td>Прец де вынзаре</td>
+        <td class="val">3–15%</td>
+        <td>Диференциат пе продус</td>
+      </tr>
+      <tr>
+        <td>Импозит де рулаж — алкоол</td>
+        <td>Прец де вынзаре</td>
+        <td class="val">75%</td>
+        <td>Аксизэ маре пентру лимитаря консумулуй</td>
+      </tr>
+      <tr>
+        <td>Котизация синдикалэ</td>
+        <td>Салариу лунар</td>
+        <td class="val">1.0%</td>
+        <td>Мандаторие пентру мунчиторий синдикализаць</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="stamp">Конфирмат · Минестерул Финанцелор РССМ</div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ДОКУМЕНТЕ ИСТОРИЧЕ
+══════════════════════════════════════════════ -->
+<section id="docs">
+  <div class="section-head">
+    <span class="section-num">§ 05</span>
+    <h2 class="section-title">Документе <span>Историче</span></h2>
+  </div>
+  <hr class="section-sep">
+
+  <div class="two-col">
+    <div class="info-block">
+      <div class="info-block-title">Лежислация де Базэ</div>
+      <ul class="info-list">
+        <li>Лежя де ла 30 ноембрие 1939 — Импозит пе венит</li>
+        <li>Декретул дин 21 ноембрие 1941 — Импозит пе целибат</li>
+        <li>Лежя дин 8 аугуст 1953 — Редучеря импозителор агриколе</li>
+        <li>Декретул дин 12 ноембрие 1964 — Тача пе транспорт</li>
+        <li>Лежя дин 26 апрелие 1988 — Импозитаря кооператибелор</li>
+        <li>Лежя дин 14 маи 1990 — Импозитаря ынтрепрындерилор</li>
+      </ul>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Органе Фискале</div>
+      <ul class="info-list">
+        <li>Минестерул Финанцелор ал РССМ</li>
+        <li>Инспекция Фискалэ де Стат</li>
+        <li>Депортаментул де Финанце (Кишинэу)</li>
+        <li>Инспекциле Финанчиаре Районале</li>
+        <li>Посткомпания РССМ (таксе ши тимбре)</li>
+        <li>Банка де Стат ал УРСС (контроль фискал)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-block">
+      <div class="info-block-title">Ексемпций ши Редучерь</div>
+      <ul class="info-list">
+        <li>Ветераний де рэзбой — ексемпт тача лочинцэ</li>
+        <li>Инвализий де груп I–II — ексемпт импозит венит</li>
+        <li>Фамилий ку 4+ копий — редучере 50% импозит</li>
+        <li>Пензионарий (дупэ 1956) — ексемпт импозит</li>
+        <li>Институций культурале — ексемпт импозит</li>
+        <li>Кооперативе де конструкции — ексемпт 3 ань</li>
+      </ul>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">Сурсе де Информацие</div>
+      <ul class="info-list">
+        <li>Архива Националэ а Молдовей (АНМ)</li>
+        <li>Фонд 2848 — Минестерул Финанцелор РССМ</li>
+        <li>Ануарел Статистик ал РССМ (1970–1990)</li>
+        <li>Буджетул РССМ пе аний 1960–1990</li>
+        <li>Лежислация советикэ пе финанце публиче</li>
+        <li>Монографий историче — АШМ</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /content -->
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>Систем Фискал ал РССМ · 1940–1991</strong><br>
+    Ресурсэ историкэ едукацьоналэ · Базатэ пе документе де архивэ<br>
+    <span style="color:var(--ink3)">GitHub: <a href="https://github.com/ivanm696/mssr-tax-system" style="color:var(--gold2)">ivanm696/mssr-tax-system</a></span>
+  </p>
+  <p style="margin-top:12px;font-size:11px;color:var(--ink3)">
+    © 2026 Ivan Melenciuc · melenciucivan03@gmail.com · Дубэсарь, Молдова 🇲🇩
+  </p>
+</footer>
+
+<script>
+// ── TABS ──────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────
+function showResult(id, rows, total, note) {
+  const el = document.getElementById(id);
+  el.classList.add('visible');
+  el.innerHTML = `
+    <div class="result-head">Резултатул Калкулулуй</div>
+    <div class="result-rows">
+      ${rows.map(([l,v]) => `
+        <div class="result-row">
+          <span class="result-row-lbl">${l}</span>
+          <span class="result-row-val">${v}</span>
+        </div>`).join('')}
+    </div>
+    <div class="result-total">
+      <span class="result-total-lbl">Total де плэтит</span>
+      <span class="result-total-val">${total}</span>
+    </div>
+    <div class="result-note">⚠ ${note}</div>
+  `;
+}
+
+function fmt(n) { return n.toFixed(2) + ' руб.'; }
+
+// ── SALARY TAX ────────────────────────────────────────────────────────────
+function calcSalary() {
+  const sal  = parseFloat(document.getElementById('salary').value) || 0;
+  const kids = parseInt(document.getElementById('children').value) || 0;
+  const type = document.getElementById('worker-type').value;
+  const year = parseInt(document.getElementById('calc-year').value);
+
+  if (sal <= 0) { alert('Ынтродуче салариул!'); return; }
+
+  // Progressive scale (1970s rates)
+  let rate = 0, base = 0;
+  if (sal <= 70) { rate = 0; base = 0; }
+  else if (sal <= 90)  { rate = 0.082; base = sal - 70; }
+  else if (sal <= 100) { rate = 0.100; base = sal - 70; }
+  else if (sal <= 200) { rate = 0.120; base = sal - 70; }
+  else                 { rate = 0.130; base = sal - 70; }
+
+  // Cooperative workers post-1988
+  if (type === 'cooperative' && year >= 1988) rate = Math.min(rate * 1.3, 0.35);
+
+  let incomeTax = base * rate;
+
+  // Deduction for children (10% per child, max 30%)
+  const childDiscount = Math.min(kids * 0.10, 0.30);
+  incomeTax = incomeTax * (1 - childDiscount);
+
+  // Union fee 1%
+  const unionFee = sal * 0.01;
+
+  // Total
+  const total = incomeTax + unionFee;
+  const net   = sal - total;
+
+  showResult('result-salary', [
+    ['Салариу брут',           fmt(sal)],
+    ['База де импозитаре',     fmt(base)],
+    ['Куота де импозит',       (rate*100).toFixed(1) + '%'],
+    ['Редучере пентру копий',  (childDiscount*100).toFixed(0) + '% (' + kids + ' копий)'],
+    ['Импозит пе венит',       fmt(incomeTax)],
+    ['Котизация синдикалэ 1%', fmt(unionFee)],
+    ['Салариу нет (ын мынэ)',  fmt(net)],
+  ],
+  fmt(total),
+  'Калкул ориентатив базат пе куотеле РССМ дин перйоада ' + year + '. Куотеле реале путяу варя ын функцие де рамурэ ши дечизиа синдикатулуй.');
+}
+
+// ── PROPERTY TAX ──────────────────────────────────────────────────────────
+function calcProperty() {
+  const area   = parseFloat(document.getElementById('area').value) || 0;
+  const type   = document.getElementById('prop-type').value;
+  const owner  = document.getElementById('owner-type').value;
+
+  if (area <= 0) { alert('Ынтродуче суправфаца!'); return; }
+  if (owner !== 'regular') {
+    showResult('result-property', [
+      ['Категориа','Ексемпт де лежислация РССМ'],
+      ['Тача','—']
+    ], '0.00 руб.', 'Ветераний ши инвализий де групэ I–II сынт ексемптэць де тача пе лочинцэ принтр-о лежислацие специалэ.');
+    return;
+  }
+
+  // Estimated inventory value by area and location
+  const valPerM2 = type === 'urban' ? 120 : 60; // рубле/м²
+  const invValue = area * valPerM2;
+  const rate     = type === 'urban' ? 0.0065 : 0.0035;
+  const tax      = invValue * rate;
+
+  showResult('result-property', [
+    ['Суправфаца', area + ' м²'],
+    ['Прец инвентар/м²', valPerM2 + ' руб.'],
+    ['Валоаре инвентарэ тоталэ', fmt(invValue)],
+    ['Куота тачей (' + type + ')', (rate*100).toFixed(2) + '%'],
+    ['Тача ануалэ', fmt(tax)],
+    ['Тача лунарэ (приентатив)', fmt(tax/12)],
+  ],
+  fmt(tax) + '/ан',
+  'Валоаря инвентарэ ера стабилитэ де органеле БТИ (Биро Техник де Инвентариере). Куотеле ау варят ын периоада 1940–1991.');
+}
+
+// ── TRANSPORT TAX ─────────────────────────────────────────────────────────
+function calcTransport() {
+  const type  = document.getElementById('transport-type').value;
+  const count = parseInt(document.getElementById('transport-count').value) || 1;
+
+  const rates = {
+    'moto':      50,
+    'car-small':  50,
+    'car-mid':   100,
+    'car-big':   200,
+  };
+  const names = {
+    'moto':      'Мотоциклетэ / Мопед',
+    'car-small': 'Аутомобил малий (Запорожець, Жигули 2101)',
+    'car-mid':   'Аутомобил медиу (Москвич, Жигули 2106)',
+    'car-big':   'Аутомобил маре (Волга, Чайка)',
+  };
+
+  const annualPerUnit = rates[type];
+  const total = annualPerUnit * count;
+
+  showResult('result-transport', [
+    ['Типул транспортулуй', names[type]],
+    ['Нумэрул де унитэць', count],
+    ['Тача/унитате/ан', annualPerUnit + ' руб.'],
+    ['Total ануал', fmt(total)],
+    ['Total лунар (приентатив)', fmt(total/12)],
+  ],
+  fmt(total) + '/ан',
+  'Тача пе транспорт ера плэтитэ ануал ла Инспекция Фискалэ. Дупэ 1980 куотеле ау фост мэрите ку 20–30% пентру аутомобилеле де кластэ маре.');
+}
+
+// ── BACHELOR TAX ──────────────────────────────────────────────────────────
+function calcBachelor() {
+  const sal    = parseFloat(document.getElementById('bach-salary').value) || 0;
+  const age    = parseInt(document.getElementById('bach-age').value) || 0;
+  const gender = document.getElementById('bach-gender').value;
+  const period = document.getElementById('bach-year').value;
+
+  if (sal <= 0) { alert('Ынтродуче салариул!'); return; }
+
+  // Age limits: men 20-50, women 20-45
+  const maxAge = gender === 'm' ? 50 : 45;
+  const minAge = 20;
+
+  if (age < minAge || age > maxAge) {
+    showResult('result-bachelor',
+      [['Вырста', age + ' ань'], ['Статус', 'Ын афара вырстей де импозитаре']],
+      '0.00 руб.',
+      `Импозитул пе челибат се аплика бэрбацилор ынтре 20–50 де ань ши фемеилор ынтре 20–45 де ань.`
+    );
+    return;
+  }
+
+  const rate = period === '1945' ? 0.06 : 0.06;
+  const tax  = sal * rate;
+
+  showResult('result-bachelor', [
+    ['Салариу', fmt(sal)],
+    ['Куота импозитулуй пе челибат', '6%'],
+    ['Перйоада', period === '1945' ? '1941–1957' : '1958–1991'],
+    ['Вырста', age + ' ань (' + (gender==='m'?'Мэскулин':'Фемениин') + ')'],
+    ['Импозит лунар', fmt(tax)],
+    ['Импозит ануал', fmt(tax*12)],
+  ],
+  fmt(tax) + '/лунэ',
+  'Импозитул пе челибат а фост ынтродус ын 1941 пентру стимуларя наталитэций. Ера плэтит де тоць нэнсурэций/нэмэритателе фэрэ копий ын вырстеле де импозитаре, инклусив вэдувий/вэдуавеле фэрэ копий.');
+}
+</script>
+</body>
+</html>
+HTMLEOF
+echo "✅ index.html created ($(wc -l < /home/claude/mssr-tax/index.html) lines)"
+Output
+
+✅ index.html created (1279 lines)
